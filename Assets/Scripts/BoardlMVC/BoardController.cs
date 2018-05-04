@@ -2,8 +2,8 @@
 using System.Collections;
 using System;
 
-public class BoardController 
-{ 
+public class BoardController{
+
     public BoardModel model;
     public BoardView view;
 
@@ -15,42 +15,17 @@ public class BoardController
         this.view = view; 
     }
 
-    /*
+    //UI button connections to model
     public void LightUpSquare(){
-        model.LightSquare();
+          model.LightSquare();
     }
     
-    public bool WalkNORTH(){
-        Debug.Log("BoardWalkNorth");
-        return model.PlayerWalk(BoardModel.CompassDirection.NORTH);
+    public void Walk(BoardModel.CompassDirection direction){
+         model.PlayerWalk(direction);
     }
-
-    public void WalkSOUTH(){
-        model.PlayerWalk(BoardModel.CompassDirection.SOUTH);
+  
+    public void Jump(BoardModel.CompassDirection direction){
+        model.PlayerJump(direction);
     }
-
-    public void WalkEAST(){
-        model.PlayerWalk(BoardModel.CompassDirection.EAST);
-    }
-
-    public void WalkWEST(){
-        model.PlayerWalk(BoardModel.CompassDirection.WEST);
-    }
-
-    public void JumpNORTH(){
-        model.PlayerJump(BoardModel.CompassDirection.NORTH);
-    }
-
-    public void JumpSOUTH(){
-        model.PlayerJump(BoardModel.CompassDirection.SOUTH);
-    }
-
-    public void JumpEAST(){
-        model.PlayerJump(BoardModel.CompassDirection.EAST);
-    }
-
-    public void JumpWEST(){
-        model.PlayerJump(BoardModel.CompassDirection.WEST);
-    }
-    */
+   
 }

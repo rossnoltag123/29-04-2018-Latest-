@@ -3,8 +3,11 @@ using UnityEngine;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 
-public class BoardModel
-{
+/// <summary>
+/// This calss represents the board/level displayed.
+/// </summary>
+public class BoardModel{
+
     public enum SquareType{
         TARGET_H0_UNLIT, //Target_H0_UNLIT is the default square type for all squares in new map
         TARGET_H1_UNLIT,
@@ -20,6 +23,9 @@ public class BoardModel
         IMPASSABLE_VOLCANO
     };
 
+    /// <summary>
+    /// Each direction is the possible directions the user can travel
+    /// </summary>
     public enum CompassDirection{
         NORTH,
         SOUTH,
@@ -34,31 +40,33 @@ public class BoardModel
     public static readonly int[] ImpassableSquareTypes = new int[12];
     public static readonly int[] WalkableSquareTypes = new int[12];
     public static readonly SquareType[] UnlitToLit = new SquareType[12];
-
-
     public CompassDirection compassDirection;
-    public SquareType moveToSquareType { get; set; }
+    public SquareType moveToSquareType {get;set;}
     public SquareType currentPlayerSquareType;// { get; set; }
     public SquareType[,] map { get; set; }
-
     public int mapSize { get; set; }
     public int playerX { get; set; }
     public int playerY { get; set; }
-
     public int moveToSquareX { get; set; }
     public int moveToSquareY { get; set; }
-
     public static readonly int[] xMoves = new int[4];
     public static readonly int[] yMoves = new int[4];
-
     private bool lastActionSuccess = false;
+    private bool unlitOnBoard = false;
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="mapSize"></param>
     public BoardModel(int mapSize){
         this.mapSize = mapSize;
         map = new SquareType[this.mapSize, this.mapSize];
         FillStaticArrays();
     }
 
+    /// <summary>
+    /// Fills all the statics arrays
+    /// </summary>
     private void FillStaticArrays(){
         SetXMoveForDirection();
         SetYMoveForDirection();
@@ -71,6 +79,10 @@ public class BoardModel
         PlayerTypeToChar();
     }
 
+    /// <summary>
+    /// Returns a bool to confirm wether the move was completed
+    /// </summary>
+    /// <returns></returns>
     public bool GetLastActionSuccess(){
         return lastActionSuccess;
     }
@@ -122,7 +134,6 @@ public class BoardModel
     public bool LightSquare(){
         currentPlayerSquareType = CurrentPlayerSquareType();
         lastActionSuccess = CheckIfUnlitSquareType(currentPlayerSquareType);
-
         if (lastActionSuccess){
             map[playerX,playerY]= GetUnlitToLit(currentPlayerSquareType);
         }
@@ -221,7 +232,7 @@ public class BoardModel
     public bool DestinationOneAboveCurrent(SquareType currentPlayerSquareType, SquareType jumpToSquareType){
         int heightCurrentSquare = TileTypeHeight[(int)currentPlayerSquareType];
         int heightDestinationSquare = TileTypeHeight[(int)jumpToSquareType];
-        return (heightDestinationSquare == heightCurrentSquare + 1);
+        return (heightDestinationSquare == heightCurrentSquare + 1 || heightDestinationSquare == heightCurrentSquare - 1);
     }
 
     public void SetUnlitToLit(){
@@ -249,8 +260,7 @@ public class BoardModel
         string output = "";
         string charForCurrentType;  
         for (int r = 0; r < mapSize; r++){
-            for (int c = 0; c < mapSize; c++){
-          
+            for (int c = 0; c < mapSize; c++){    
                 SquareType currentSquareType = map[r, c];
                 charForCurrentType = GetTypeToChar(currentSquareType);
                 if (r == playerX){
@@ -307,6 +317,7 @@ public class BoardModel
        string t = SquareTypeToChar[(int)currentSquareType];
        return t;
     }
+ 
 }
 
 

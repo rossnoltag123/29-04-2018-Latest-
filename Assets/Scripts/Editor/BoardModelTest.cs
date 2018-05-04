@@ -4,7 +4,7 @@ using NUnit.Framework;
 using System;
 using UnityEngine;
 
-public class LevelModelTest
+public class BoardModelTest
 { 
     [Test]
     public void Test01_Square_Type_Enum_MapSize_Get_Set()
